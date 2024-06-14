@@ -4,7 +4,7 @@ import 'package:sudoku_game/views/gameView.dart';
 class LevelButton extends StatelessWidget {
   final String label;
 
-  const LevelButton({Key? key, required this.label}) : super(key: key);
+  const LevelButton({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {

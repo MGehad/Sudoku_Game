@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/views/HomeView.dart';
+import 'package:sudoku_game/views/homeView.dart';
 import 'package:sudoku_game/views/levelView.dart';
 
 void main() {
