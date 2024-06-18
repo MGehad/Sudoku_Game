@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/views/homeView.dart';
 import 'package:sudoku_game/views/levelView.dart';
 
 void main() {
@@ -16,11 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      routes: {
-        HomeView.id: (context) => const HomeView(),
-        LevelView.id: (context) => const LevelView(),
-      },
-      initialRoute: HomeView.id,
+     home: LevelView(),
     );
   }
 }

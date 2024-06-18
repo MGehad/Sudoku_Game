@@ -1,13 +1,15 @@
+import 'package:flutter/material.dart';
+
 class NumberModel {
   int number;
   Type status;
-  bool isSelected;
+  Color color;
   bool isCorrect;
 
   NumberModel(
       {required this.number,
       required this.status,
-      required this.isSelected,
+      required this.color,
       required this.isCorrect});
 
   static List<NumberModel> listToNumberModelList(List<int> list) {
@@ -17,11 +19,20 @@ class NumberModel {
         NumberModel(
             number: element,
             status: (element == -1) ? Type.notFixed : Type.fixed,
-            isSelected: false,
-            isCorrect: false ),
+            color: (element == -1) ? Colors.white : Colors.indigo.shade50,
+            isCorrect: false),
       );
     }
     return models;
+  }
+
+  static indexOfEmptyCard(List<NumberModel> puzzle) {
+    for (int i = 0; i < puzzle.length; i++) {
+      if (puzzle[i].number == -1) {
+        return i;
+      }
+    }
+    return -1;
   }
 }
 
