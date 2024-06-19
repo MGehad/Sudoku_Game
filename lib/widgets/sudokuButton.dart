@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 
 class SudokuButton extends StatelessWidget {
   final String label;
@@ -11,14 +12,14 @@ class SudokuButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.indigo, Colors.deepPurple],
+          colors: [AppColors.primaryColor, Colors.deepPurple],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppColors.secondaryColor.shade900.withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 8),
           ),
@@ -43,7 +44,7 @@ class SudokuButton extends StatelessWidget {
           label,
           style: const TextStyle(
             fontSize: 36,
-            color: Colors.white,
+            color: AppColors.lightColor,
           ),
         ),
       ),

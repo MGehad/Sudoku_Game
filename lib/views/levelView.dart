@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 import 'package:sudoku_game/sound/sound.dart';
 import 'package:sudoku_game/views/gameView.dart';
 import 'package:sudoku_game/views/settingsView.dart';
@@ -9,24 +10,22 @@ class LevelView extends StatefulWidget {
 
   @override
   State<LevelView> createState() => _LevelViewState();
-
 }
 
 class _LevelViewState extends State<LevelView> {
-  Sound sound = Sound();
+  Sound music = Sound();
 
   @override
   void initState() {
     super.initState();
-    sound.playAndStopMusic();
+    music.playAndStopMusic();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: AppColors.secondaryColor.shade200,
         actions: [
           IconButton(
             onPressed: () {
@@ -35,17 +34,17 @@ class _LevelViewState extends State<LevelView> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SettingsView(
-                    sound: sound,
+                    sound: music,
                   ),
                 ),
               );
             },
             icon: Icon(Icons.settings),
-            color: Colors.indigo,
+            color: AppColors.primaryColor,
           ),
         ],
       ),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: AppColors.secondaryColor[200],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,7 +53,7 @@ class _LevelViewState extends State<LevelView> {
               'SUDOKU',
               style: TextStyle(
                 fontFamily: 'Chunq',
-                color: Colors.indigo,
+                color: AppColors.primaryColor,
                 fontSize: 70,
               ),
             ),

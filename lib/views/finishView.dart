@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 import 'package:sudoku_game/sound/sound.dart';
+import 'package:sudoku_game/widgets/resultsContainer.dart';
 import 'package:sudoku_game/widgets/sudokuButton.dart';
 import '../models/numberModel.dart';
 
@@ -30,17 +32,8 @@ class _FinishViewState extends State<FinishView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
-        ),
-      ),
-      backgroundColor: Colors.grey[200],
+      appBar: buildAppBar(context),
+      backgroundColor: AppColors.secondaryColor[200],
       body: PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
@@ -51,34 +44,26 @@ class _FinishViewState extends State<FinishView> {
         },
         child: Column(
           children: [
+            ResultsContainer(score: score, time: widget.time),
+            const SizedBox(height: 20),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+              padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.grey.shade300),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Score: $score',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    'Time: ${(widget.time / 60).floor()}:${widget.time % 60}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                color: AppColors.lightColor,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.secondaryColor.shade400,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 45, top: 25),
               height: MediaQuery.of(context).size.height * .43,
               width: MediaQuery.of(context).size.width * .9,
               child: buildGrid(),
             ),
+            const SizedBox(height: 45.0),
             SudokuButton(
               label: 'Solution',
               onPressed: () {
@@ -106,11 +91,21 @@ class _FinishViewState extends State<FinishView> {
                 Navigator.pop(context);
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.secondaryColor.shade200,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        },
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
       ),
     );
   }
@@ -128,7 +123,7 @@ class _FinishViewState extends State<FinishView> {
     return Container(
       decoration: BoxDecoration(
         color: widget.puzzle[index].color,
-        border: Border.all(color: Colors.black54),
+        border: Border.all(color: AppColors.secondaryColor.shade600),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Center(
@@ -136,10 +131,10 @@ class _FinishViewState extends State<FinishView> {
           (widget.puzzle[index].number > 0
               ? '${widget.puzzle[index].number}'
               : ''),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: AppColors.secondaryColor.shade900,
           ),
         ),
       ),

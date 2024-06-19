@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 import 'package:sudoku_game/sound/sound.dart';
+import 'package:sudoku_game/widgets/containerWithDropDown.dart';
+import 'package:sudoku_game/widgets/madeByWidget.dart';
 import 'package:sudoku_game/widgets/sudokuSwitchContainer.dart';
 
 class SettingsView extends StatefulWidget {
@@ -18,17 +21,8 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
-        leading: IconButton(
-          onPressed: () {
-            Sound.playSound();
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new),
-        ),
-      ),
+      backgroundColor: AppColors.secondaryColor.shade200,
+      appBar: buildAppBar(context),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -37,12 +31,12 @@ class _SettingsViewState extends State<SettingsView> {
               'Settings',
               style: TextStyle(
                 fontFamily: 'Chunq',
-                color: Colors.indigo,
+                color: AppColors.primaryColor,
                 fontSize: 70,
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 40.0,
             ),
             Column(
               children: [
@@ -67,96 +61,25 @@ class _SettingsViewState extends State<SettingsView> {
                         switch2 = value;
                       });
                     }),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.indigo,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.language,
-                            color: Colors.tealAccent,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Language',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      DropdownButton(
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.tealAccent,
-                        ),
-                        style: TextStyle(color: Colors.white),
-                        borderRadius: BorderRadius.circular(5),
-                        dropdownColor: Colors.indigo.shade400,
-                        items: [
-                          DropdownMenuItem(
-                            child: Text(
-                              'English',
-                            ),
-                          ),
-                        ],
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.indigo,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.gamepad_outlined,
-                            color: Colors.tealAccent,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Made by',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        'ENG Mohamed Gehad',
-                        style: TextStyle(
-                            color: Colors.tealAccent.shade100,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                )
+                ContainerWithDropDown(),
+                MadeByWidget()
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColors.secondaryColor.shade200,
+      leading: IconButton(
+        onPressed: () {
+          Sound.playSound();
+          Navigator.pop(context);
+        },
+        icon: Icon(Icons.arrow_back_ios_new),
       ),
     );
   }

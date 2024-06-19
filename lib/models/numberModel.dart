@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 
 class NumberModel {
   int number;
@@ -19,7 +20,7 @@ class NumberModel {
         NumberModel(
             number: element,
             status: (element == -1) ? Type.notFixed : Type.fixed,
-            color: (element == -1) ? Colors.white : Colors.indigo.shade50,
+            color: (element == -1) ? AppColors.lightColor : AppColors.primaryColor.shade50,
             isCorrect: false),
       );
     }

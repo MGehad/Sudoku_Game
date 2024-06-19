@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 
 class SudokuSwitchContainer extends StatelessWidget {
   String name;
@@ -17,21 +18,23 @@ class SudokuSwitchContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       decoration: BoxDecoration(
-        color: Colors.indigo,
+        color: AppColors.primaryColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: SwitchListTile(
         onChanged: onChanged,
         value: switchX,
         overlayColor: MaterialStatePropertyAll(Colors.tealAccent),
-        activeColor: Colors.white,
-        inactiveThumbColor: Colors.indigo,
+        activeColor: AppColors.lightColor,
+        inactiveThumbColor: AppColors.primaryColor,
         title: Text(
           "$name",
           style: TextStyle(
-              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+              color: AppColors.lightColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500),
         ),
-        secondary: Icon(icon, color: Colors.tealAccent, size: 25),
+        secondary: Icon(icon, color: AppColors.thirdColor, size: 25),
       ),
     );
   }

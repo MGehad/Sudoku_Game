@@ -2,9 +2,11 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:sudoku_dart/sudoku_dart.dart';
+import 'package:sudoku_game/appColors/appColors.dart';
 import 'package:sudoku_game/models/numberModel.dart';
 import 'package:sudoku_game/sound/sound.dart';
 import 'package:sudoku_game/views/finishView.dart';
+import 'package:sudoku_game/widgets/streamCounter.dart';
 import 'package:sudoku_game/widgets/sudokuAnimatedButton.dart';
 import 'package:sudoku_game/widgets/sudokuButton.dart';
 
@@ -41,40 +43,8 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.grey.shade200,
-        centerTitle: true,
-        title: Text(
-          widget.gameLevel.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Sound.playSound();
-            sudokuAwesomeDialog(btnOkOnPress: () {
-              Sound.playSound();
-              Navigator.pop(context);
-            });
-          },
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Sound.playSound();
-              _stopWatchTimer.onStopTimer();
-              _showPauseMenu();
-            },
-            icon: Icon(Icons.pause),
-          )
-        ],
-      ),
-      backgroundColor: Colors.grey[200],
+      appBar: buildAppBar(context),
+      backgroundColor: AppColors.secondaryColor[200],
       body: PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
@@ -91,105 +61,8 @@ class _GameViewState extends State<GameView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  /*SudokuAnimatedButton(
-                    text: 'Clear',
-                    btnOkOnPress: () {
-                      setState(() {
-                        for (int i = 0; i < puzzle.length; i++) {
-                          puzzle[i].color = (puzzle[i].status == Type.fixed)
-                              ? Colors.indigo.shade50
-                              : Colors.white;
-                          if (puzzle[i].status == Type.notFixed) {
-                            puzzle[i].number = -1;
-                          }
-                        }
-                      });
-                    },
-                  ),*/
-                  StreamBuilder<int>(
-                    stream: _stopWatchTimer.secondTime,
-                    builder: (context, snap) {
-                      final value = snap.data;
-                      return Container(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        width: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "${((value ?? 0) / 60).floor()} : ",
-                              style: const TextStyle(
-                                fontSize: 35,
-                                fontFamily: 'Digital',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Text(
-                              ((value ?? 0) % 60).toString(),
-                              style: const TextStyle(
-                                fontSize: 35,
-                                fontFamily: 'Digital',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            Sound.playSound();
-                            if (hints > 0) {
-                              int index = NumberModel.indexOfEmptyCard(puzzle);
-                              if (index != -1) {
-                                puzzle[index] = NumberModel(
-                                  number: solution[index],
-                                  status: Type.fixed,
-                                  color: Colors.indigo.shade50,
-                                  isCorrect: false,
-                                );
-                              }
-                              hints--;
-                            }
-                          });
-                        },
-                        icon: Icon(
-                          Icons.lightbulb,
-                          color: Colors.cyan,
-                          size: 30,
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.grey.shade300),
-                        ),
-                      ),
-                      Positioned(
-                        right: 2,
-                        top: -12,
-                        child: Container(
-                          child: Text(
-                            '$hints',
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: Colors.red, shape: BoxShape.circle),
-                        ),
-                      ),
-                    ],
-                  )
+                  StreamCounter(stopWatchTimer: _stopWatchTimer),
+                  buildHintStack(),
                 ],
               ),
             ),
@@ -247,7 +120,7 @@ class _GameViewState extends State<GameView> {
                   _stopWatchTimer.onStopTimer();
                   for (var element in puzzle) {
                     if (element.status == Type.fixed) {
-                      element.color = Colors.grey.shade300;
+                      element.color = AppColors.secondaryColor.shade300;
                     } else if (element.isCorrect) {
                       element.color = Colors.green;
                     } else {
@@ -279,20 +152,105 @@ class _GameViewState extends State<GameView> {
     );
   }
 
+  Stack buildHintStack() {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        IconButton(
+          onPressed: () {
+            setState(() {
+              Sound.playSound();
+              if (hints > 0) {
+                int index = NumberModel.indexOfEmptyCard(puzzle);
+                if (index != -1) {
+                  puzzle[index] = NumberModel(
+                    number: solution[index],
+                    status: Type.fixed,
+                    color: AppColors.primaryColor.shade50,
+                    isCorrect: false,
+                  );
+                }
+                hints--;
+              }
+            });
+          },
+          icon: Icon(
+            Icons.lightbulb,
+            color: Colors.cyan,
+            size: 30,
+          ),
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStatePropertyAll(AppColors.secondaryColor.shade300),
+          ),
+        ),
+        Positioned(
+          right: 2,
+          top: -12,
+          child: Container(
+            child: Text(
+              '$hints',
+              style: TextStyle(color: AppColors.lightColor, fontSize: 15),
+            ),
+            padding: EdgeInsets.all(5),
+            decoration:
+                BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+          ),
+        ),
+      ],
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: AppColors.secondaryColor.shade200,
+      centerTitle: true,
+      title: Text(
+        widget.gameLevel.toUpperCase(),
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: AppColors.secondaryColor.shade900,
+        ),
+      ),
+      leading: IconButton(
+        onPressed: () {
+          Sound.playSound();
+          sudokuAwesomeDialog(btnOkOnPress: () {
+            Sound.playSound();
+            Navigator.pop(context);
+          });
+        },
+        icon: Icon(Icons.arrow_back_ios_new_rounded),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            Sound.playSound();
+            _stopWatchTimer.onStopTimer();
+            _showPauseMenu();
+          },
+          icon: Icon(Icons.pause),
+        )
+      ],
+    );
+  }
+
   void _showPauseMenu() {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: AppColors.secondaryColor.shade50,
           title: Center(
             child: Text(
               "Menu",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 40,
-                  color: Colors.indigo),
+                  color: AppColors.primaryColor),
             ),
           ),
           elevation: 0,
@@ -382,16 +340,16 @@ class _GameViewState extends State<GameView> {
             if (puzzle[index].status == Type.notFixed) {
               for (var element in puzzle) {
                 element.color = (element.status == Type.fixed)
-                    ? Colors.indigo.shade50
-                    : Colors.white;
+                    ? AppColors.primaryColor.shade50
+                    : AppColors.lightColor;
                 ;
               }
-              puzzle[index].color = Colors.indigo.shade400;
+              puzzle[index].color = AppColors.primaryColor.shade400;
               Set<int> set = getRowAndColumn(index);
               for (int element in set) {
                 puzzle[element].color = (puzzle[element].status == Type.fixed)
-                    ? Colors.indigo.shade200
-                    : Colors.indigo.shade100;
+                    ? AppColors.primaryColor.shade200
+                    : AppColors.primaryColor.shade100;
               }
             }
           },
@@ -400,16 +358,16 @@ class _GameViewState extends State<GameView> {
       child: Container(
         decoration: BoxDecoration(
           color: puzzle[index].color,
-          border: Border.all(color: Colors.black54),
+          border: Border.all(color: AppColors.secondaryColor.shade600),
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
           child: Text(
             (puzzle[index].number > 0 ? '${puzzle[index].number}' : ''),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: AppColors.secondaryColor.shade900,
             ),
           ),
         ),
@@ -442,7 +400,7 @@ class _GameViewState extends State<GameView> {
           Sound.playSound();
           setState(() {
             for (var list in puzzle) {
-              if (list.color == Colors.indigo.shade400) {
+              if (list.color == AppColors.primaryColor.shade400) {
                 list.number = int.parse(txt);
               }
             }
@@ -450,7 +408,7 @@ class _GameViewState extends State<GameView> {
         },
         style: ButtonStyle(
           fixedSize: MaterialStatePropertyAll(Size(70, 40)),
-          backgroundColor: MaterialStateProperty.all(Colors.indigo),
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
@@ -459,10 +417,10 @@ class _GameViewState extends State<GameView> {
         ),
         child: Text(
           txt,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Colors.white,
+            color: AppColors.lightColor,
           ),
         ),
       ),
@@ -477,7 +435,7 @@ class _GameViewState extends State<GameView> {
           Sound.playSound();
           setState(() {
             for (var list in puzzle) {
-              if (list.color == Colors.indigo.shade400) {
+              if (list.color == AppColors.primaryColor.shade400) {
                 list.number = -1;
               }
             }
@@ -485,7 +443,7 @@ class _GameViewState extends State<GameView> {
         },
         style: ButtonStyle(
           fixedSize: MaterialStatePropertyAll(Size(70, 40)),
-          backgroundColor: MaterialStateProperty.all(Colors.indigo),
+          backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
@@ -494,7 +452,7 @@ class _GameViewState extends State<GameView> {
         ),
         child: Icon(
           Icons.highlight_remove_rounded,
-          color: Colors.white,
+          color: AppColors.lightColor,
         ),
       ),
     );
