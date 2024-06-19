@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/sound/sound.dart';
 
 class SudokuAnimatedButton extends StatelessWidget {
   String text;
@@ -26,7 +27,9 @@ class SudokuAnimatedButton extends StatelessWidget {
         animType: AnimType.scale,
         desc: 'Are you sure..?',
         dismissOnTouchOutside: true,
-        btnCancelOnPress: () {},
+        btnCancelOnPress: () {
+          Sound.playSound();
+        },
         btnOkOnPress: btnOkOnPress,
       ).show(),
     );

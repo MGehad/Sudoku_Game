@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:sudoku_dart/sudoku_dart.dart';
 import 'package:sudoku_game/models/numberModel.dart';
+import 'package:sudoku_game/sound/sound.dart';
 import 'package:sudoku_game/views/finishView.dart';
 import 'package:sudoku_game/widgets/sudokuAnimatedButton.dart';
 import 'package:sudoku_game/widgets/sudokuButton.dart';
@@ -54,7 +55,9 @@ class _GameViewState extends State<GameView> {
         ),
         leading: IconButton(
           onPressed: () {
-            sudokuAwesomeDialog(() {
+            Sound.playSound();
+            sudokuAwesomeDialog(btnOkOnPress: () {
+              Sound.playSound();
               Navigator.pop(context);
             });
           },
@@ -63,6 +66,7 @@ class _GameViewState extends State<GameView> {
         actions: [
           IconButton(
             onPressed: () {
+              Sound.playSound();
               _stopWatchTimer.onStopTimer();
               _showPauseMenu();
             },
@@ -75,7 +79,7 @@ class _GameViewState extends State<GameView> {
         canPop: false,
         onPopInvoked: (didPop) {
           if (!didPop) {
-            sudokuAwesomeDialog(() {
+            sudokuAwesomeDialog(btnOkOnPress: () {
               Navigator.pop(context);
             });
           }
@@ -146,6 +150,7 @@ class _GameViewState extends State<GameView> {
                       IconButton(
                         onPressed: () {
                           setState(() {
+                            Sound.playSound();
                             if (hints > 0) {
                               int index = NumberModel.indexOfEmptyCard(puzzle);
                               if (index != -1) {
@@ -228,6 +233,7 @@ class _GameViewState extends State<GameView> {
             SudokuAnimatedButton(
               text: 'Done',
               btnOkOnPress: () {
+                Sound.playSound();
                 isCompleted = true;
                 for (int i = 0; i < puzzle.length; i++) {
                   if (puzzle[i].number == solution[i]) {
@@ -237,7 +243,7 @@ class _GameViewState extends State<GameView> {
                     isCompleted = false;
                   }
                 }
-                if (!isCompleted) {
+                if (isCompleted) {
                   _stopWatchTimer.onStopTimer();
                   for (var element in puzzle) {
                     if (element.status == Type.fixed) {
@@ -300,6 +306,7 @@ class _GameViewState extends State<GameView> {
                   SudokuButton(
                     label: 'Resume',
                     onPressed: () {
+                      Sound.playSound();
                       _stopWatchTimer.onStartTimer();
                       Navigator.pop(context);
                     },
@@ -310,6 +317,7 @@ class _GameViewState extends State<GameView> {
                   SudokuButton(
                     label: 'Restart',
                     onPressed: () {
+                      Sound.playSound();
                       _stopWatchTimer.onResetTimer();
                       setState(() {
                         puzzle = NumberModel.listToNumberModelList(original);
@@ -323,8 +331,9 @@ class _GameViewState extends State<GameView> {
                     height: 20,
                   ),
                   SudokuButton(
-                    label: 'New Game',
+                    label: 'Exit',
                     onPressed: () {
+                      Sound.playSound();
                       Navigator.pop(context);
                       Navigator.pop(context);
                     },
@@ -338,14 +347,16 @@ class _GameViewState extends State<GameView> {
     );
   }
 
-  sudokuAwesomeDialog(VoidCallback btnOkOnPress) {
+  sudokuAwesomeDialog({required VoidCallback btnOkOnPress}) {
     return AwesomeDialog(
       context: context,
       dialogType: DialogType.question,
       animType: AnimType.scale,
       desc: 'Are you want to exit..?',
       dismissOnTouchOutside: true,
-      btnCancelOnPress: () {},
+      btnCancelOnPress: () {
+        Sound.playSound();
+      },
       btnOkOnPress: btnOkOnPress,
     ).show();
   }
@@ -365,6 +376,7 @@ class _GameViewState extends State<GameView> {
   Widget buildSudokuNumber(int index) {
     return GestureDetector(
       onTap: () {
+        Sound.playSound();
         setState(
           () {
             if (puzzle[index].status == Type.notFixed) {
@@ -427,6 +439,7 @@ class _GameViewState extends State<GameView> {
       padding: const EdgeInsets.symmetric(horizontal: 3.0),
       child: ElevatedButton(
         onPressed: () {
+          Sound.playSound();
           setState(() {
             for (var list in puzzle) {
               if (list.color == Colors.indigo.shade400) {
@@ -461,6 +474,7 @@ class _GameViewState extends State<GameView> {
       padding: const EdgeInsets.symmetric(horizontal: 3.0),
       child: ElevatedButton(
         onPressed: () {
+          Sound.playSound();
           setState(() {
             for (var list in puzzle) {
               if (list.color == Colors.indigo.shade400) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/sound/sound.dart';
 import 'package:sudoku_game/widgets/sudokuButton.dart';
 import '../models/numberModel.dart';
 
@@ -81,6 +82,7 @@ class _FinishViewState extends State<FinishView> {
             SudokuButton(
               label: 'Solution',
               onPressed: () {
+                Sound.playSound();
                 setState(
                   () {
                     for (int i = 0; i < widget.puzzle.length; i++) {
@@ -99,6 +101,7 @@ class _FinishViewState extends State<FinishView> {
             SudokuButton(
               label: 'New Game',
               onPressed: () {
+                Sound.playSound();
                 Navigator.pop(context);
                 Navigator.pop(context);
               },

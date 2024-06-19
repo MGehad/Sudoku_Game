@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku_game/sound/sound.dart';
 import 'package:sudoku_game/views/gameView.dart';
+import 'package:sudoku_game/views/settingsView.dart';
 import 'package:sudoku_game/widgets/sudokuButton.dart';
 
-class LevelView extends StatelessWidget {
+class LevelView extends StatefulWidget {
   const LevelView({super.key});
+
+  @override
+  State<LevelView> createState() => _LevelViewState();
+
+}
+
+class _LevelViewState extends State<LevelView> {
+  Sound sound = Sound();
+
+  @override
+  void initState() {
+    super.initState();
+    sound.playAndStopMusic();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +29,17 @@ class LevelView extends StatelessWidget {
         backgroundColor: Colors.grey.shade200,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Sound.playSound();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingsView(
+                    sound: sound,
+                  ),
+                ),
+              );
+            },
             icon: Icon(Icons.settings),
             color: Colors.indigo,
           ),
@@ -35,61 +62,67 @@ class LevelView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SudokuButton(
-onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => GameView(gameLevel: "Easy"),
-    ),
-  );
-},
+                  onPressed: () {
+                    Sound.playSound();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameView(gameLevel: "Easy"),
+                      ),
+                    );
+                  },
                   label: "Easy",
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 SudokuButton(
-onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => GameView(gameLevel: "Medium"),
-    ),
-  );
-},
+                  onPressed: () {
+                    Sound.playSound();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameView(gameLevel: "Medium"),
+                      ),
+                    );
+                  },
                   label: "Medium",
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 SudokuButton(
-onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => GameView(gameLevel: "Hard"),
-    ),
-  );
-},
+                  onPressed: () {
+                    Sound.playSound();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameView(gameLevel: "Hard"),
+                      ),
+                    );
+                  },
                   label: "Hard",
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 SudokuButton(
-onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => GameView(gameLevel: "Expert"),
-    ),
-  );
-},
+                  onPressed: () {
+                    Sound.playSound();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameView(gameLevel: "Expert"),
+                      ),
+                    );
+                  },
                   label: "Expert",
                 ),
               ],
             ),
-            SizedBox(height: 50,)
+            SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),
