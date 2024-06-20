@@ -13,6 +13,7 @@ class Sound {
 
   void playAndStopMusic() {
     if (switch1) {
+      musicPlayer.setReleaseMode(ReleaseMode.loop);
       musicPlayer.play(AssetSource('sound/Sudoku Main Sound.mp3'));
     } else {
       musicPlayer.stop();
