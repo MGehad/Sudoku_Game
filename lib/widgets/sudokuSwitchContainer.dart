@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../appColors/appColors.dart';
 
 class SudokuSwitchContainer extends StatelessWidget {
-  String name;
-  IconData icon;
-  bool switchX;
-  Function(bool) onChanged;
+  final String name;
+  final IconData icon;
+  final bool switchX;
+  final Function(bool) onChanged;
 
   SudokuSwitchContainer(
       {required this.name,

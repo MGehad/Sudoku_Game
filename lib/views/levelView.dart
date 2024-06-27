@@ -34,7 +34,7 @@ class _LevelViewState extends State<LevelView> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SettingsView(
-                    sound: music,
+                    music: music,
                   ),
                 ),
               );

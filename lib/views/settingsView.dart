@@ -6,9 +6,9 @@ import '../widgets/madeByWidget.dart';
 import '../widgets/sudokuSwitchContainer.dart';
 
 class SettingsView extends StatefulWidget {
-  final Sound sound;
+  final Sound music;
 
-  SettingsView({required this.sound});
+  SettingsView({required this.music});
 
   @override
   State<SettingsView> createState() => _SettingsViewState();
@@ -49,7 +49,7 @@ class _SettingsViewState extends State<SettingsView> {
                       setState(() {
                         musicSwitch = value;
                       });
-                      widget.sound.playAndStopMusic();
+                      widget.music.playAndStopMusic();
                     }),
                 SudokuSwitchContainer(
                     name: 'Sound',

@@ -10,7 +10,6 @@ import '../widgets/sudokuAnimatedButton.dart';
 import '../widgets/sudokuButton.dart';
 import 'finishView.dart';
 
-
 class GameView extends StatefulWidget {
   final String gameLevel;
 
@@ -230,7 +229,7 @@ class _GameViewState extends State<GameView> {
           onPressed: () {
             Sound.playSound();
             _stopWatchTimer.onStopTimer();
-            _showPauseMenu();
+            showPauseMenu();
           },
           icon: Icon(Icons.pause),
         )
@@ -238,7 +237,7 @@ class _GameViewState extends State<GameView> {
     );
   }
 
-  void _showPauseMenu() {
+  void showPauseMenu() {
     showDialog(
       barrierDismissible: false,
       context: context,

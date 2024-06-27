@@ -4,15 +4,15 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 class StreamCounter extends StatelessWidget {
   const StreamCounter({
     super.key,
-    required StopWatchTimer stopWatchTimer,
-  }) : _stopWatchTimer = stopWatchTimer;
+    required this.stopWatchTimer,
+  });
 
-  final StopWatchTimer _stopWatchTimer;
+  final StopWatchTimer stopWatchTimer;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<int>(
-      stream: _stopWatchTimer.secondTime,
+      stream: stopWatchTimer.secondTime,
       builder: (context, snap) {
         final value = snap.data;
         return Container(

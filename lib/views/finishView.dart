@@ -80,9 +80,7 @@ class _FinishViewState extends State<FinishView> {
                 );
               },
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             SudokuButton(
               label: 'New Game',
               onPressed: () {
