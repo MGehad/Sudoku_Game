@@ -1,10 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/sound/sound.dart';
+import '../sound/sound.dart';
 
 class SudokuAnimatedButton extends StatelessWidget {
-  String text;
-  VoidCallback btnOkOnPress;
+  final String text;
+  final VoidCallback btnOkOnPress;
 
   SudokuAnimatedButton(
       {super.key, required this.text, required this.btnOkOnPress});

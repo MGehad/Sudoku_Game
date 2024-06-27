@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/views/levelView.dart';
+import 'views/levelView.dart';
 
 void main() {
   runApp(const MyApp());

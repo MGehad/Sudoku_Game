@@ -2,13 +2,14 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:sudoku_dart/sudoku_dart.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
-import 'package:sudoku_game/models/numberModel.dart';
-import 'package:sudoku_game/sound/sound.dart';
-import 'package:sudoku_game/views/finishView.dart';
-import 'package:sudoku_game/widgets/streamCounter.dart';
-import 'package:sudoku_game/widgets/sudokuAnimatedButton.dart';
-import 'package:sudoku_game/widgets/sudokuButton.dart';
+import '../appColors/appColors.dart';
+import '../models/numberModel.dart';
+import '../sound/sound.dart';
+import '../widgets/streamCounter.dart';
+import '../widgets/sudokuAnimatedButton.dart';
+import '../widgets/sudokuButton.dart';
+import 'finishView.dart';
+
 
 class GameView extends StatefulWidget {
   final String gameLevel;

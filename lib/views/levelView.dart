@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
-import 'package:sudoku_game/sound/sound.dart';
-import 'package:sudoku_game/views/gameView.dart';
-import 'package:sudoku_game/views/settingsView.dart';
-import 'package:sudoku_game/widgets/sudokuButton.dart';
+import '../appColors/appColors.dart';
+import '../sound/sound.dart';
+import '../widgets/sudokuButton.dart';
+import 'gameView.dart';
+import 'settingsView.dart';
 
 class LevelView extends StatefulWidget {
   const LevelView({super.key});

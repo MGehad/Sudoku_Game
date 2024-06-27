@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
+
+import '../appColors/appColors.dart';
 
 class NumberModel {
   int number;

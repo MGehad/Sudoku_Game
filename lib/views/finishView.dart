@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
-import 'package:sudoku_game/sound/sound.dart';
-import 'package:sudoku_game/widgets/resultsContainer.dart';
-import 'package:sudoku_game/widgets/sudokuButton.dart';
+import '../appColors/appColors.dart';
 import '../models/numberModel.dart';
+import '../sound/sound.dart';
+import '../widgets/resultsContainer.dart';
+import '../widgets/sudokuButton.dart';
 
 class FinishView extends StatefulWidget {
   List<NumberModel> puzzle;
-  List<int> solution;
+  final List<int> solution;
   final int time;
 
   FinishView(

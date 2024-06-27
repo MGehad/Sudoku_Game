@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
-import 'package:sudoku_game/sound/sound.dart';
-import 'package:sudoku_game/widgets/containerWithDropDown.dart';
-import 'package:sudoku_game/widgets/madeByWidget.dart';
-import 'package:sudoku_game/widgets/sudokuSwitchContainer.dart';
+import '../appColors/appColors.dart';
+import '../sound/sound.dart';
+import '../widgets/containerWithDropDown.dart';
+import '../widgets/madeByWidget.dart';
+import '../widgets/sudokuSwitchContainer.dart';
 
 class SettingsView extends StatefulWidget {
-  Sound sound;
+  final Sound sound;
 
   SettingsView({required this.sound});
 
@@ -14,8 +14,8 @@ class SettingsView extends StatefulWidget {
   State<SettingsView> createState() => _SettingsViewState();
 }
 
-bool switch1 = true;
-bool switch2 = true;
+bool musicSwitch = true;
+bool soundSwitch = true;
 
 class _SettingsViewState extends State<SettingsView> {
   @override
@@ -43,22 +43,22 @@ class _SettingsViewState extends State<SettingsView> {
                 SudokuSwitchContainer(
                     name: 'Music',
                     icon: Icons.music_note,
-                    switchX: switch1,
+                    switchX: musicSwitch,
                     onChanged: (value) {
                       Sound.playSound();
                       setState(() {
-                        switch1 = value;
+                        musicSwitch = value;
                       });
                       widget.sound.playAndStopMusic();
                     }),
                 SudokuSwitchContainer(
                     name: 'Sound',
                     icon: Icons.keyboard_voice,
-                    switchX: switch2,
+                    switchX: soundSwitch,
                     onChanged: (value) {
                       Sound.playSound();
                       setState(() {
-                        switch2 = value;
+                        soundSwitch = value;
                       });
                     }),
                 ContainerWithDropDown(),

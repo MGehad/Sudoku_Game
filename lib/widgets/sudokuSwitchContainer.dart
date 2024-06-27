@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_game/appColors/appColors.dart';
+import '../appColors/appColors.dart';
 
 class SudokuSwitchContainer extends StatelessWidget {
   String name;
